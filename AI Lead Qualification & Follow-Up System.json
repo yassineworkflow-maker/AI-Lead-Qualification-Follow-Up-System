@@ -1,0 +1,393 @@
+{
+  "name": "AI Lead Qualification & Follow-Up System",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ai-leads",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c6fb7bdc-826b-4233-9572-e36fe801e572",
+      "name": "Receive Lead",
+      "webhookId": "54602229-b4ed-4427-b1de-52ffda001371"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1dba118d-aaf5-4c99-b7d2-436db8183b11",
+              "name": "name",
+              "value": "={{ $json.body.name }}",
+              "type": "string"
+            },
+            {
+              "id": "b19238aa-5665-4692-860c-222e82a37b9b",
+              "name": "email",
+              "value": "={{ $json.body.email }}",
+              "type": "string"
+            },
+            {
+              "id": "3c100674-8bb8-46d4-80c3-5b39f3363846",
+              "name": "service",
+              "value": "={{ $json.body.service }}",
+              "type": "string"
+            },
+            {
+              "id": "d45ab81b-bd11-450c-af91-9052f8d07863",
+              "name": "budget",
+              "value": "={{ $json.body.budget }}",
+              "type": "number"
+            },
+            {
+              "id": "bf5a279c-db21-4b97-a760-a8377f187998",
+              "name": "message",
+              "value": "={{ $json.body.message }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        -160
+      ],
+      "id": "9d9f9bc0-6784-4d67-abd0-97b72791d1ab",
+      "name": "Prepare Lead Data"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      name: \"Ahmed\",\n      email: \"ahmed@example.com\",\n      service: \"E-commerce Website\",\n      budget: 10000,\n      message: \"أريد إنشاء متجر إلكتروني لشركتي وأريد البدء خلال أسبوعين، وأحتاج نظام دفع وربط مع CRM.\"\n    }\n  },\n  {\n    json: {\n      name: \"Youssef\",\n      email: \"youssef@example.com\",\n      service: \"E-commerce Website\",\n      budget: 300,\n      message: \"كم سعر إنشاء متجر؟ أنا فقط أستفسر عن الأسعار حاليًا.\"\n    }\n  },\n  {\n    json: {\n      name: \"Sara\",\n      email: \"sara@example.com\",\n      service: \"AI Automation\",\n      budget: 4000,\n      message: \"لدينا شركة ونريد أتمتة معالجة العملاء المحتملين ونريد البدء هذا الشهر.\"\n    }\n  },\n  {\n    json: {\n      name: \"Omar\",\n      email: \"omar@example.com\",\n      service: \"Website\",\n      budget: 1500,\n      message: \"أحتاج موقعًا ولكن ربما أبدأ بعد 6 أشهر، ما زلت أقارن بين الشركات.\"\n    }\n  },\n  {\n    json: {\n      name: \"Karim\",\n      email: \"karim@example.com\",\n      service: \"CRM Automation\",\n      budget: 7000,\n      message: \"لدينا أكثر من 1000 عميل ونريد أتمتة المتابعة مع العملاء. نحتاج الحل في أقرب وقت.\"\n    }\n  },\n  {\n    json: {\n      name: \"Adam\",\n      email: \"adam@example.com\",\n      service: \"Chatbot\",\n      budget: 50,\n      message: \"أريد معرفة تكلفة chatbot فقط، ليس لدي مشروع محدد حاليًا.\"\n    }\n  },\n  {\n    json: {\n      name: \"Hassan\",\n      email: \"hassan@example.com\",\n      service: \"AI Automation\",\n      budget: 3500,\n      message: \"لدينا مشكلة في متابعة الـleads ونفقد الكثير منها. نريد حلًا عمليًا ونستطيع البدء الأسبوع القادم.\"\n    }\n  },\n   {\n    json: {\n      name: \"Mehdi\",\n      email: \"mehdi@example.com\",\n      service: \"Website\",\n      budget: 6000,\n      message: \"أريد موقعًا لشركتي لكن القرار النهائي سيكون السنة القادمة.\"\n    }\n  },\n  {\n    json: {\n      name: \"Nadia\",\n      email: \"nadia@example.com\",\n      service: \"Lead Generation\",\n      budget: 4500,\n      message: \"نريد زيادة عدد العملاء المحتملين ونحتاج إلى البدء فورًا. هل يمكن تحديد موعد لمناقشة المشروع؟\"\n    }\n  },\n  {\n    json: {\n      name: \"Samir\",\n      email: \"samir@example.com\",\n      service: \"Automation\",\n      budget: 100,\n      message: \"هل يمكنكم إعطائي فكرة عن الخدمات التي تقدمونها؟ لا أعرف بعد ما أحتاجه.\"\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        -160
+      ],
+      "id": "81988462-211b-40e7-aaee-dde8423b1bdb",
+      "name": "Prepare AI Input"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/responses",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_OPENAI_API_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"gpt-5.6\",\n  \"input\": \"أنت مسؤول تأهيل العملاء المحتملين في وكالة تسويق رقمي.\\n\\nحلل بيانات العميل التالية وحدد مدى احتمالية تحوله إلى عميل حقيقي.\\n\\nالاسم: {{ $json.name }}\\nالبريد الإلكتروني: {{ $json.email }}\\nالخدمة المطلوبة: {{ $json.service }}\\nالميزانية: {{ $json.budget }}\\nرسالة العميل: {{ $json.message }}\\n\\nأعطني النتيجة بهذا الشكل:\\nLead Score: رقم من 0 إلى 100\\nPriority: HOT أو WARM أو COLD\\nReason: سبب مختصر للقرار\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        352,
+        160
+      ],
+      "id": "5d5ab7ea-320a-4ec0-8cf6-c564479ae11c",
+      "name": "AI Lead Analysis"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2bf0b248-5757-49d5-a1b3-1881c2da30f4",
+              "name": "ai_result",
+              "value": "={{ $json.output.find(item => item.type === 'message').content.find(c => c.type === 'output_text').text }}",
+              "type": "string"
+            },
+            {
+              "id": "46fec809-8417-4ed5-86cf-814103cd6179",
+              "name": "name",
+              "value": "={{ $('Prepare AI Input').all()[$itemIndex].json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "a68aeade-2d00-4d5a-93b7-953835c5bce0",
+              "name": "Email",
+              "value": "={{ $('Prepare AI Input').all()[$itemIndex].json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "456a96f6-1e51-4511-ab84-e5df835d0bed",
+              "name": "Budget",
+              "value": "={{ $('Prepare AI Input').all()[$itemIndex].json.budget }}",
+              "type": "string"
+            },
+            {
+              "id": "dc8267f1-985b-48ff-880b-8b0864fcd150",
+              "name": "Service",
+              "value": "={{ $('Prepare AI Input').all()[$itemIndex].json.service }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        656,
+        336
+      ],
+      "id": "94ede0b3-7f39-4b14-bc36-ef6359926f09",
+      "name": "Format Lead Result"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "7323db89-1900-4ff5-a38f-59b6f09adcc3",
+              "leftValue": "={{ $json.ai_result }}",
+              "rightValue": "Priority: HOT",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        640,
+        32
+      ],
+      "id": "f422057b-fc96-4542-8c60-38ff732f8a39",
+      "name": "Check HOT Lead"
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "=🔥 HOT LEAD 👤 Name: {{ $json.name }} 📧 Email: {{ $json.Email }} 💰 Budget: {{ $json.Budget }} 🛠️ Service: {{ $json.Service }}  {{ $json.ai_result }}  This message was sent automatically with n8n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        896,
+        -64
+      ],
+      "id": "3229a025-7145-4633-ad0c-3a2c14f1d109",
+      "name": "Send HOT Alert",
+      "webhookId": "aec3e062-b3dc-4408-9bcd-8d0b15b860d5",
+      "credentials": {
+        "telegramApi": {
+          "id": "rsR9lxiLTVrCEoq8",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "84b841a0-5d14-4ed1-b0ed-416201077bf7",
+              "leftValue": "={{ $json.ai_result }}",
+              "rightValue": "Priority: WARM",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        896,
+        352
+      ],
+      "id": "546a61d1-bd7c-4292-bff6-758ee0875c07",
+      "name": "Check WARM Lead"
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "=🟡 WARM LEAD\n\n👤 Name: {{ $json.name }}\n📧 Email: {{ $json.Email }}\n💰 Budget: {{ $json.Budget }}\n🛠️ Service: {{ $json.Service }}\n\n{{ $json.ai_result }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1248,
+        64
+      ],
+      "id": "8617410d-7711-4869-a956-78fad8c29525",
+      "name": "Send WARM Alert",
+      "webhookId": "37d7999f-18df-495c-a61b-728a02df6f6e",
+      "credentials": {
+        "telegramApi": {
+          "id": "rsR9lxiLTVrCEoq8",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "=🔵 COLD LEAD  👤 Name: {{ $json.name }} 📧 Email: {{ $json.Email }} 💰 Budget: {{ $json.Budget }} 🛠️ Service: {{ $json.Service }}  {{ $json.ai_result }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1120,
+        448
+      ],
+      "id": "e90267a8-9b9e-45c7-a025-db66614f7a28",
+      "name": "Send COLD Alert",
+      "webhookId": "4f3cf4c4-fd90-4f39-af7f-efcb77058ec9",
+      "credentials": {
+        "telegramApi": {
+          "id": "rsR9lxiLTVrCEoq8",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Receive Lead": {
+      "main": [
+        [
+          {
+            "node": "Prepare Lead Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Lead Data": {
+      "main": [
+        [
+          {
+            "node": "Prepare AI Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare AI Input": {
+      "main": [
+        [
+          {
+            "node": "AI Lead Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Lead Analysis": {
+      "main": [
+        [
+          {
+            "node": "Format Lead Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Lead Result": {
+      "main": [
+        [
+          {
+            "node": "Check HOT Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check HOT Lead": {
+      "main": [
+        [
+          {
+            "node": "Send HOT Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check WARM Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check WARM Lead": {
+      "main": [
+        [
+          {
+            "node": "Send WARM Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send COLD Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "nodeGroups": [],
+  "tags": []
+}
