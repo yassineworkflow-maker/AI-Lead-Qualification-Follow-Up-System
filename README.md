@@ -236,9 +236,8 @@ service, and intent.
 ## 📁 Repository Structure
 
 ``` text
-project-8-ai-lead-qualification/
-│
-├── workflow.json
+AI-Lead-Qualification-Follow-Up-System/
+├── AI-Lead-Qualification-Follow-Up-System.json
 ├── README.md
 └── ai-lead-qualification-workflow.png
 ```
