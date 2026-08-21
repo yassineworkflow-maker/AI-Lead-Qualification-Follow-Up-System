@@ -323,7 +323,7 @@ opportunities.
 
 ------------------------------------------------------------------------
 
-::: {align="center"}
+::: 
 ### ⚡ Automate the work. Prioritize the opportunities. Close faster.
 
 **n8n × AI × Automation**
